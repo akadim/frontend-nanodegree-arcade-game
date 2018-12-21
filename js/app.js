@@ -1,3 +1,5 @@
+"use strict";
+
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
@@ -25,8 +27,8 @@ Enemy.prototype.update = function(dt) {
     this.x += this.speed * dt;
     
     // Make sure that the enemies won't leave the edges of the platform
-    if(this.x >= 400) {
-        this.x = 0;
+    if(this.x >= 600) {
+        this.x = -100;
     }
     
     // Check the Collision between the Enemy and the Player
@@ -55,7 +57,7 @@ var Player = function(x, y) {
 
 Player.prototype.update = function () {
     // Make sure the player doesn't leave the game
-    this.x = ((this.x < 0) ? 400 : ( (this.x > 400) ? 0 : this.x ));
+    this.x = ((this.x < 0) ? 0 : ( (this.x > 400) ? 400 : this.x ));
 
     // Return to the Starting point if the Player reaches  the Sea
     if(this.y < 60) {
@@ -88,8 +90,15 @@ Player.prototype.handleInput = function (direction) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 // the Enemies should have a random speed (I think)
-allEnemies = [new Enemy(0, 60, Math.floor(Math.random() * 150)), new Enemy(0, 140, Math.floor(Math.random() * 150)), new Enemy(0, 220, Math.floor(Math.random() * 150))];
-player = new Player(200, 380);
+let allEnemies = [
+    new Enemy(-500, 60, Math.floor(Math.random() * (512 - 100) + 100)),
+    new Enemy(0, 60, Math.floor(Math.random() * (512 - 100) + 100)),
+    new Enemy(-600, 140, Math.floor(Math.random() * (512 - 100) + 100)),
+    new Enemy(0, 140, Math.floor(Math.random() * (512 - 100) + 100)),
+    new Enemy(-400, 220, Math.floor(Math.random() * (512 - 100) + 100)),
+    new Enemy(0, 220, Math.floor(Math.random() * (512 - 100) + 100))
+];
+let player = new Player(200, 380);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
